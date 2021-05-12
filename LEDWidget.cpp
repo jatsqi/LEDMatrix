@@ -30,12 +30,12 @@ void LEDWidget::showCell(unsigned int col, unsigned int row, QColor color)
     visibleCells_.insert(qMakePair(col, row), color);
 }
 
-void LEDWidget::hideCell(unsigned int col, unsigned int row, QColor color)
+void LEDWidget::hideCell(unsigned int col, unsigned int row, QColor)
 {
     visibleCells_.remove(qMakePair(col, row));
 }
 
-void LEDWidget::paintEvent(QPaintEvent* event)
+void LEDWidget::paintEvent(QPaintEvent*)
 {
     cellWidth_ = width() / cols_;
     cellHeight_ = height() / rows_;

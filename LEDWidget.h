@@ -41,7 +41,6 @@ private:
     QMap<QPair<unsigned int, unsigned int>, QColor> visibleCells_;
     unsigned int rows_, cols_;
     float cellWidth_, cellHeight_;
-    float relativeX_, relativeY_;
 
 };
 
