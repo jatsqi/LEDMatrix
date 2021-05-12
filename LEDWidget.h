@@ -2,7 +2,7 @@
 #define LEDWIDGET_H
 
 #include <QWidget>
-#include <QSet>
+#include <QMap>
 #include <QPair>
 #include <QHash>
 
@@ -23,8 +23,8 @@ public:
 public slots:
 
     void clear();
-    void show(unsigned int col, unsigned int row);
-    void hide(unsigned int col, unsigned int row);
+    void showCell(unsigned int col, unsigned int row, QColor color);
+    void hideCell(unsigned int col, unsigned int row, QColor color);
 
 protected:
 
@@ -38,7 +38,7 @@ private:
 
 private:
 
-    QSet<QPair<unsigned int, unsigned int>> visibleCells_;
+    QMap<QPair<unsigned int, unsigned int>, QColor> visibleCells_;
     unsigned int rows_;
     unsigned int cols_;
 

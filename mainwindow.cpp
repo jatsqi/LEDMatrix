@@ -39,6 +39,6 @@ MainWindow::~MainWindow()
 
 void MainWindow::onActionButtonClicked(int buttonNr)
 {
-    ledWidget_->show(buttonNr, buttonNr);
+    ledWidget_->showCell(buttonNr, buttonNr, Qt::red);
     ledWidget_->repaint();
 }

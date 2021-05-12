@@ -7,7 +7,7 @@
 LEDWidget::LEDWidget(unsigned int cols, unsigned int rows, QWidget* parent)
     : QWidget(parent), rows_(rows), cols_(cols)
 {
-    show(1, 1);
+    showCell(1, 1, Qt::black);
 }
 
 unsigned int LEDWidget::getColumnCount() const
@@ -25,12 +25,12 @@ void LEDWidget::clear()
     visibleCells_.clear();
 }
 
-void LEDWidget::show(unsigned int col, unsigned int row)
+void LEDWidget::showCell(unsigned int col, unsigned int row, QColor color)
 {
-    visibleCells_.insert(qMakePair(col, row));
+    visibleCells_.insert(qMakePair(col, row), color);
 }
 
-void LEDWidget::hide(unsigned int col, unsigned int row)
+void LEDWidget::hideCell(unsigned int col, unsigned int row, QColor color)
 {
     visibleCells_.remove(qMakePair(col, row));
 }
@@ -85,11 +85,16 @@ void LEDWidget::drawCells(QPainter &painter)
     const float cellWidth = width() / cols_;
     const float cellHeight = height() / rows_;
 
+    for(auto it = visibleCells_.keyValueBegin(); it != visibleCells_.keyValueEnd(); ++it)
+    {
+        float x = cellWidth * it->first.first;
+        float y = cellHeight * it->first.second;
+
+        painter.fillRect(QRectF(x, y, cellWidth, cellHeight), it->second);
+    }
+
     for(const auto& cell : visibleCells_)
     {
-        float x = cellWidth * cell.first;
-        float y = cellHeight * cell.second;
 
-        painter.fillRect(QRectF(x, y, cellWidth, cellHeight), Qt::black);
     }
 }
