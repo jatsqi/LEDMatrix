@@ -37,6 +37,9 @@ void LEDWidget::hideCell(unsigned int col, unsigned int row, QColor color)
 
 void LEDWidget::paintEvent(QPaintEvent* event)
 {
+    cellWidth_ = width() / cols_;
+    cellHeight_ = height() / rows_;
+
     QPainter painter(this);
     drawGrid(painter);
     drawCells(painter);
@@ -55,16 +58,14 @@ void LEDWidget::resizeEvent(QResizeEvent *event)
 
 void LEDWidget::drawGrid(QPainter &painter)
 {
-    const float cellWidth = width() / cols_;
-    const float cellHeight = height() / rows_;
     float currentYVertical = 0;
     float currentXHorizontal = 0;
     unsigned int step = 0;
 
     do
     {
-        currentYVertical = step * cellHeight;
-        currentXHorizontal = step * cellWidth;
+        currentYVertical = step * cellHeight_;
+        currentXHorizontal = step * cellWidth_;
 
         if(currentXHorizontal < width())
         {
@@ -82,19 +83,11 @@ void LEDWidget::drawGrid(QPainter &painter)
 
 void LEDWidget::drawCells(QPainter &painter)
 {
-    const float cellWidth = width() / cols_;
-    const float cellHeight = height() / rows_;
-
     for(auto it = visibleCells_.keyValueBegin(); it != visibleCells_.keyValueEnd(); ++it)
     {
-        float x = cellWidth * it->first.first;
-        float y = cellHeight * it->first.second;
+        float x = cellWidth_ * it->first.first;
+        float y = cellHeight_ * it->first.second;
 
-        painter.fillRect(QRectF(x, y, cellWidth, cellHeight), it->second);
-    }
-
-    for(const auto& cell : visibleCells_)
-    {
-
+        painter.fillRect(QRectF(x, y, cellWidth_, cellHeight_), it->second);
     }
 }

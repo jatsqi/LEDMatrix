@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent)
     }
 
     mainLayout_ = new QVBoxLayout;
-    mainLayout_->addWidget(ledWidget_);
+    mainLayout_->addWidget(ledWidget_, Qt::AlignCenter);
     mainLayout_->addLayout(buttonLayout_);
 
     main->setLayout(mainLayout_);
